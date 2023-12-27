@@ -1,0 +1,23 @@
+{
+  "name": "playwright_sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasnk/Playwright_sandbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukasnk/Playwright_sandbox/issues"
+  },
+  "homepage": "https://github.com/lukasnk/Playwright_sandbox#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.40.1"
+  }
+}
