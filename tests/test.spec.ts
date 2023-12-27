@@ -6,7 +6,7 @@ test.describe('Verification tests', async () => {
         await page.goto('https://ultimateqa.com/simple-html-elements-for-automation/');
         await expect(page).toHaveURL('https://ultimateqa.com/simple-html-elements-for-automation/');
 
-        const pageContent = await page.locator('div.et_pb_text_inner h3');
+        const pageContent = page.locator('div.et_pb_text_inner h3');
         const requiredTexts = [
             "This section has really simple HTML elements so that you can understand their basic nature. Feel free to practice your test automation on these elements."
         ];
