@@ -1,21 +1,38 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('My Web Application Tests', () => {
+test.describe('Verification tests', async () => {
 
-    test.beforeEach(async ({ page }) => {
-        // Actions to perform before each test, like navigating to the application
-        await page.goto('https://example.com');
+    test('Page smoke test verification', async ({page}) => {
+        await page.goto('https://ultimateqa.com/simple-html-elements-for-automation/');
+        await expect(page).toHaveURL('https://ultimateqa.com/simple-html-elements-for-automation/');
+
+        const pageContent = await page.locator('div.et_pb_text_inner h3');
+        const requiredTexts = [
+            "This section has really simple HTML elements so that you can understand their basic nature. Feel free to practice your test automation on these elements."
+        ];
+
+        await expect(pageContent).toHaveText(requiredTexts);
     });
 
-    test('Homepage should load correctly', async ({ page }) => {
-        // Assertions for the homepage
-        await expect(page).toHaveURL('https://example.com');
-        await expect(page).toHaveTitle('Example Domain');
-    });
+    test('HTML Table with job titles, work types, and salaries', async ({ page }) => {
+        const expectedData = [
+            { title: 'Software Development Engineer in Test', work: 'Automation', salary: '$150,000+' },
+            { title: 'Automation Testing Architect', work: 'Automation', salary: '$120,000+' },
+            { title: 'Quality Assurance Engineer', work: 'Manual', salary: '$50,000+' }
+        ];
 
-    test('Homepage should have a specific element', async ({ page }) => {
-        // Check for a specific element on the page
-        const exampleElement = await page.locator('selector-for-element');
-        await expect(exampleElement).toBeVisible();
+        await page.goto('https://ultimateqa.com/simple-html-elements-for-automation/');
+
+        await expect(page.locator(".et_pb_text_inner h2").nth(1)).toHaveText("HTML Table with no id");
+
+        const tableSelector = '.et_pb_text_inner table';
+        const secondTable = page.locator(tableSelector).nth(1);
+
+        for (const [index, job] of expectedData.entries()) {
+            const rowLocator = secondTable.locator('tbody tr').nth(index + 1); // +1 to skip header row
+            await expect(rowLocator).toContainText(job.title, { timeout: 5000 });
+            await expect(rowLocator).toContainText(job.work, { timeout: 5000 });
+            await expect(rowLocator).toContainText(job.salary, { timeout: 5000 });
+        }
     });
 });
