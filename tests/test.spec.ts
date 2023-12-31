@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-
 test.describe('Verification tests', async () => {
 
     test('Page smoke test verification', async ({page}) => {
